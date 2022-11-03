@@ -12,7 +12,7 @@ spec:
           serviceAccountName: workloads-chaos
           containers:
           - name: chaos 
-            image: docker.io/roldanx/python-workloads-chaos:0.1
+            image: docker.io/roldanx/python-workloads-chaos:0.2
             env:
             - name: CHAOS_NAMESPACE
               valueFrom:
