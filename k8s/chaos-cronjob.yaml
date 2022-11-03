@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob 
+metadata:
+  name: workloads-chaos 
+  namespace: workloads-chaos
+spec:
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: workloads-chaos
+          containers:
+          - name: chaos 
+            image: docker.io/roldanx/python-workloads-chaos:0.2
+            env:
+            - name: CHAOS_NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: workloads-chaos 
+                  key: chaos_namespace 
+            ports:
+            - containerPort: 80
+          restartPolicy: OnFailure
